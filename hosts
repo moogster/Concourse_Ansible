@@ -2,3 +2,5 @@
 concourse_web_node ansible_host=<IP_ADDR>
 
 [workers]
+worker1 ansible_host=<IP_ADDR>
+worker2 ansible_host=<IP_ADDR>
