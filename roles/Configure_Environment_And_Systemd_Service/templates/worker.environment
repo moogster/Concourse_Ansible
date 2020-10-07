@@ -1,4 +1,4 @@
 CONCOURSE_WORK_DIR=/opt/concourse/worker
 CONCOURSE_TSA_WORKER_PRIVATE_KEY=/etc/concourse/worker_key
 CONCOURSE_TSA_PUBLIC_KEY=/etc/concourse/tsa_host_key.pub
-CONCOURSE_TSA_HOST={{ concourse_web_node }}:2222
+CONCOURSE_TSA_HOST={{ hostvars['concourse_web_node'].ansible_host }}:2222

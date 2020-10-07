@@ -21,15 +21,7 @@
     grub2-mkconfig -o /boot/grub2/grub.cfg
   when: '"kernel-ml" in yum_updates.changes.installed'
 
-- name: Restart server to ensure configuration changes take hold
-  shell: 'sleep 2 && shutdown -r now "Reboot triggered by Ansible" && sleep 5'
-  async: 1
-  poll: 0
+- name: Wait for nodes to reboot
+  reboot: 
+    reboot_timeout: 60      
   when: '"kernel-ml" in yum_updates.changes.installed'
-
-- name: Wait for the server to restart
-  local_action:
-    module: wait_for
-      host={{ inventory_hostname }}
-      port=22
-      delay=10

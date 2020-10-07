@@ -1,5 +1,5 @@
 [web]
-192.168.0.87
+concourse_web_node ansible_host=192.168.0.87
 
 [workers]
 192.168.0.55

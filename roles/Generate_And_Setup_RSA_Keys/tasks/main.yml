@@ -6,7 +6,6 @@
   user:
     name: concourse
     group: concourse
-#    home: /home/concourse
     system: yes
     password: "{{ concourse_user_password }}"
 
@@ -24,5 +23,3 @@
     - /etc/concourse/tsa_host_key
     - /etc/concourse/worker_key
 
-#- name: cp /etc/concourse/worker_key.pub /etc/concourse/authorized_worker_keys
-#  shell: cp /etc/concourse/worker_key.pub /etc/concourse/authorized_worker_keys

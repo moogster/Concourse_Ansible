@@ -12,7 +12,7 @@
     line: "{{ worker_key['content'] | b64decode }}"
     insertafter: EOF
     create: yes
-  delegate_to: "{{ concourse_web_node }}"
+  delegate_to: "{{ hostvars['concourse_web_node'].ansible_host }}"
 
 - name: Get web node tsa_host_key.pub
   fetch: 

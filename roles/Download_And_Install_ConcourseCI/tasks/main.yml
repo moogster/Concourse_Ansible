@@ -14,7 +14,6 @@
     src: /usr/local/concourse/bin/concourse
     dest: /usr/local/bin/concourse
     mode: '0755'
-    remote_src: 'yes'
     state: link
 
 - name: Download fly_linux_amd64 v6.5.1

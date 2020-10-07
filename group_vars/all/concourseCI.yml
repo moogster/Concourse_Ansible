@@ -2,10 +2,10 @@ passwd_postgres: password
 passwd_postgres_concourse:  password
 concourse_login: admin
 concourse_pass: password
+concourse_team_name: main
+concourse_target: test
 
 # Below password is 'concourse' hashed by ansible
 concourse_user_password: "$6$mysecretsalt$wxHgAWftxAlm4/sTwVxVvDw/hdD2DcN.jomynx5IDyctO7Zx3bWgqg0pej5gZVARiLwAfSrDH5u1P0YsY4jSl1"
-
-concourse_web_node: 192.168.0.87
 
 elrepo_repo_url: https://mirror.rackspace.com/elrepo/kernel/el7/x86_64/RPMS/elrepo-release-7.0-5.el7.elrepo.noarch.rpm
