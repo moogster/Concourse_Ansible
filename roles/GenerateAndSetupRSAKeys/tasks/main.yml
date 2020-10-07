@@ -1,0 +1,28 @@
+- name: Add concourse group
+  group:
+    name: concourse
+
+- name: Add concourse user
+  user:
+    name: concourse
+    group: concourse
+#    home: /home/concourse
+    system: yes
+    password: "{{ concourse_user_password }}"
+
+- name: Create a new directory /etc/concourse
+  file:
+    path: /etc/concourse
+    state: directory
+    owner: concourse
+    group: concourse
+
+- name: ssh-keygen in actions
+  shell:  yes y | ssh-keygen -t rsa -q -N '' -f {{ item }}
+  with_items:
+    - /etc/concourse/session_signing_key
+    - /etc/concourse/tsa_host_key
+    - /etc/concourse/worker_key
+
+#- name: cp /etc/concourse/worker_key.pub /etc/concourse/authorized_worker_keys
+#  shell: cp /etc/concourse/worker_key.pub /etc/concourse/authorized_worker_keys

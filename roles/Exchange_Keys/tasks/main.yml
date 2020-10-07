@@ -1,0 +1,35 @@
+- name: Collect worker_key.pub from worker hosts
+  slurp:
+    src: /etc/concourse/worker_key.pub
+  register: worker_key
+  
+- debug:
+    msg: "{{ worker_key['content'] | b64decode }}"
+
+- name: Add keys to authorized_worker_keys on web node
+  lineinfile:
+    dest: /etc/concourse/authorized_worker_keys
+    line: "{{ worker_key['content'] | b64decode }}"
+    insertafter: EOF
+    create: yes
+  delegate_to: "{{ concourse_web_node }}"
+
+- name: Get web node tsa_host_key.pub
+  fetch: 
+    src: /etc/concourse/tsa_host_key.pub
+    dest: /tmp/
+    flat: yes
+  when: "'web' in group_names"
+  register: fetch_output
+
+- debug: var=fetch_output
+
+- name: Copy tsa_host_key.pub to worker nodes
+  copy:
+    src: /tmp/tsa_host_key.pub
+    dest: /etc/concourse/tsa_host_key.pub
+    owner: concourse
+    group: concourse
+    mode: '0644'
+    force: yes
+  when: "'workers' in group_names"

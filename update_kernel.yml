@@ -1,0 +1,6 @@
+---
+
+- hosts: all
+  roles:
+    - role: Update_Kernel
+  become: yes

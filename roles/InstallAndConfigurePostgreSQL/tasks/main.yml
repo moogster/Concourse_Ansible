@@ -1,0 +1,54 @@
+- name: Install the PostgreSQL 11 rpm from a remote repo
+  package:
+    name: https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+    state: present
+
+- name: Install postgresql11-server postgresql11-contrib packets
+  package:
+    name:
+      - postgresql11-server
+      - postgresql11-contrib
+      - postgresql11-libs
+      - python-psycopg2
+      - oidentd
+    state: present
+
+- name: Check if PostgreSQL database is initialized.
+  stat:
+    path: "/var/lib/pgsql/11/data/PG_VERSION"
+  register: pgdata_dir_version
+
+- name: Initialise database
+  shell: /usr/pgsql-11/bin/postgresql-11-setup initdb
+  when: not pgdata_dir_version.stat.exists
+
+- name: Configure pg_hba.conf
+  template:
+    src: pg_hba.conf
+    dest: /var/lib/pgsql/11/data/pg_hba.conf
+    owner: postgres
+    group: postgres
+    mode: '0600'
+
+- name: Start and enable postgres service
+  service:
+    name: postgresql-11
+    state: started
+    enabled: yes
+
+- name: Start oidentd service
+  service:
+    name: oidentd
+    state: started
+    enabled: yes
+
+- name: Create database user
+  postgresql_user:
+    user: concourse
+    password: "{{ passwd_postgres_concourse }}"
+  no_log: true
+
+- name: Create database
+  postgresql_db:
+    name: atc
+    owner: concourse

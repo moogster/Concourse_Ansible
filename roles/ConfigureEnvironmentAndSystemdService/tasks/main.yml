@@ -1,0 +1,62 @@
+---
+
+- name: Create template for environment  web.environment
+  template:
+    src: web.environment
+    dest: /etc/concourse/web.environment
+    mode: 0600
+  when: "'web' in group_names"
+
+- name: Create template for environment worker.environment
+  template:
+    src: worker.environment
+    dest: /etc/concourse/worker.environment
+    mode: 0600
+  when: "'workers' in group_names"
+
+#- name: Add user concourse
+#  shell: adduser --system concourse
+#  ignore_errors: yes
+
+#- name: Add concourse user
+#  user:
+#    name: concourse
+#    group: concourse
+#    system: yes
+#    password: {{ concourse_user_password }}
+
+- name: Change /opt/concourse owner and group
+  file:
+    path: /etc/concourse
+    owner: concourse
+    group: concourse
+    recurse: yes
+
+- name: Create /etc/systemd/system/concourse-worker.service
+  template:
+    src: concourse-worker.service
+    dest: /etc/systemd/system/concourse-worker.service
+  when: "'workers' in group_names"
+
+- name: Create /etc/systemd/system/concourse-web.service
+  template:
+    src: concourse-web.service
+    dest: /etc/systemd/system/concourse-web.service
+  when: "'web' in group_names"
+
+- name: Reload daemon
+  shell: systemctl daemon-reload
+
+- name: Start and enable concourse-web concourse-worker
+  service:
+    name: concourse-web
+    state: started
+    enabled: yes
+  when: "'web' in group_names"
+
+- name: Start and enable concourse-web concourse-worker
+  service:
+    name: concourse-worker
+    state: started
+    enabled: yes
+  when: "'workers' in group_names"

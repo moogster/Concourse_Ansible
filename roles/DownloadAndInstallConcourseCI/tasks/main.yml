@@ -1,0 +1,30 @@
+- name: Download concourse_linux_amd64 v6.5.1
+  get_url:
+    url: https://github.com/concourse/concourse/releases/download/v6.5.1/concourse-6.5.1-linux-amd64.tgz
+    dest: /tmp
+
+- name: Extract concourse tarball
+  unarchive:
+    src: /tmp/concourse-6.5.1-linux-amd64.tgz
+    dest: /usr/local
+    remote_src: yes
+
+- name: Link concourse binary
+  file:
+    src: /usr/local/concourse/bin/concourse
+    dest: /usr/local/bin/concourse
+    mode: '0755'
+    remote_src: 'yes'
+    state: link
+
+- name: Download fly_linux_amd64 v6.5.1
+  get_url:
+    url: https://github.com/concourse/concourse/releases/download/v6.5.1/fly-6.5.1-linux-amd64.tgz
+    dest: /tmp
+
+- name: Extract fly
+  unarchive:
+   src: /tmp/fly-6.5.1-linux-amd64.tgz
+   dest: /usr/local/bin
+   mode: '0755' 
+   remote_src: yes

@@ -1,0 +1,12 @@
+- hosts: all
+  roles:
+    - role: prereqs
+    - role: Update_Kernel
+    - role: InstallAndConfigurePostgreSQL
+      when: "'web' in group_names"
+    - role: DownloadAndInstallConcourseCI
+    - role: GenerateAndSetupRSAKeys
+    - role: Exchange_Keys
+    - role: ConfigureEnvironmentAndSystemdService
+    - role: deploy_sample_pipelines
+  become: yes 

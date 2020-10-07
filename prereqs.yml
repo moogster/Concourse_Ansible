@@ -1,0 +1,6 @@
+---
+
+- hosts: all
+  roles:
+    - role: things_to_fix
+  become: yes

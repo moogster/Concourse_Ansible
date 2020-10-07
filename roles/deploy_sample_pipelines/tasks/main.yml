@@ -1,0 +1,44 @@
+- name: Copy hello-world pipeline example
+  copy:
+    src: hello-world.yml
+    dest: /home/concourse
+    owner: concourse
+    group: concourse
+    mode: '0755'
+  when: "'web' in group_names"
+  
+- name: Copy set-pipelines.ymlpipeline example
+  copy:
+    src: set-pipelines.yml
+    dest: /home/concourse
+    owner: concourse
+    group: concourse
+    mode: '0755'
+  when: "'web' in group_names"
+
+- name: Copy hello_pipeline.sh pipeline example
+  copy:
+    src: hello_pipeline.sh
+    dest: /home/concourse
+    owner: concourse
+    group: concourse
+    mode: '0755'
+  when: "'web' in group_names"
+
+- name: Copy set_pipelines.sh pipeline example
+  copy:
+    src: set_pipelines.sh
+    dest: /home/concourse
+    owner: concourse
+    group: concourse
+    mode: '0755'
+  when: "'web' in group_names"
+
+- name: copy initial_login.sh
+  template:
+    src: initial_login.sh
+    dest: /home/concourse
+    owner: concourse
+    group: concourse
+    mode: '0755'
+  when: "'web' in group_names"
