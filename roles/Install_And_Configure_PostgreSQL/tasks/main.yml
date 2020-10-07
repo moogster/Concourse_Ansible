@@ -36,7 +36,7 @@
     state: started
     enabled: yes
 
-- name: Start oidentd service
+- name: Start and enable oidentd service
   service:
     name: oidentd
     state: started
