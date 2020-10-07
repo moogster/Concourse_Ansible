@@ -19,12 +19,13 @@ setup your credentials
     ConcourseCI/group_vars/all/concourseCI.yml
 
     passwd_postgres: password
-
     passwd_postgres_concourse: password
 
     concourse_login: admin
-
     concourse_pass: password
+
+    concourse_team_name: main
+    concourse_target: test
 
     concourse_user_password: "$6$mysecretsalt$wxHgAWftxAlm4/sTwVxVvDw/hdD2DcN.jomynx5IDyctO7Zx3bWgqg0pej5gZVARiLwAfSrDH5u1P0YsY4jSl1"
     
