@@ -5,7 +5,6 @@ After=postgresql-11.service
 [Service]
 Type=simple
 User=concourse
-#Group=root
 Restart=on-failure
 EnvironmentFile=/etc/concourse/web.environment
 ExecStart=/usr/local/bin/concourse web
