@@ -8,7 +8,7 @@ use:
 
     PostgreSQL 11
 
-    Concourse v6,5,1
+    Concourse v6.5.1
     
     Sample pipleines and init scripts located in /home/concourse on concourse_web_node
    
@@ -16,7 +16,7 @@ use:
 
 setup your credentials
 
-    ConcourseCI/group_vars/concourseCi.yml
+    ConcourseCI/group_vars/all/concourseCI.yml
 
     passwd_postgres: password
 
