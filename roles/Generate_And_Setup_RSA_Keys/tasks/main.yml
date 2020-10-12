@@ -16,6 +16,16 @@
     owner: concourse
     group: concourse
 
+- name: Delete old keys
+  file:
+    path: "{{ item }}"
+    state: absent
+    force: yes
+  with_items:
+    - /etc/concourse/session_signing_key
+    - /etc/concourse/tsa_host_key
+    - /etc/concourse/worker_key
+
 - name: ssh-keygen in actions
   shell:  yes y | ssh-keygen -t rsa -q -N '' -f {{ item }}
   with_items:
