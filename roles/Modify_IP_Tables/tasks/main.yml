@@ -1,0 +1,21 @@
+- name: Remove icmp REJECT statement
+  iptables:
+    action: insert
+    chain: "{{ item }}"
+    protocol: all
+#    source: anywhere
+#    destination: anywhere
+#    jump: REJECT
+    reject_with: icmp-host-prohibited
+    state: "absent"
+  with_items:
+#    - INPUT
+#    - FORWARD
+#    - OUTPUT
+    - w--default
+    - w--forward
+    - w--input
+
+- name: Save iptables rules
+  shell: iptables-save > /etc/sysconfig/iptables
+
