@@ -1,44 +1,15 @@
 - name: Copy hello-world pipeline example
   template:
-    src: hello-world.yml
+    src: "{{ item }}"
     dest: /home/concourse
     owner: concourse
     group: concourse
     mode: '0755'
+  with_items:
+    - hello-world.yml
+    - hello_pipeline.sh
+    - set-pipelines.yml
+    - set_pipelines.sh
+    - initial_login.sh
   when: "'web' in group_names"
   
-- name: Copy set-pipelines.ymlpipeline example
-  template:
-    src: set-pipelines.yml
-    dest: /home/concourse
-    owner: concourse
-    group: concourse
-    mode: '0755'
-  when: "'web' in group_names"
-
-- name: Copy hello_pipeline.sh pipeline example
-  template:
-    src: hello_pipeline.sh
-    dest: /home/concourse
-    owner: concourse
-    group: concourse
-    mode: '0755'
-  when: "'web' in group_names"
-
-- name: Copy set_pipelines.sh pipeline example
-  template:
-    src: set_pipelines.sh
-    dest: /home/concourse
-    owner: concourse
-    group: concourse
-    mode: '0755'
-  when: "'web' in group_names"
-
-- name: Copy initial_login.sh
-  template:
-    src: initial_login.sh
-    dest: /home/concourse
-    owner: concourse
-    group: concourse
-    mode: '0755'
-  when: "'web' in group_names"
